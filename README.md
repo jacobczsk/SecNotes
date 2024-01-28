@@ -1,5 +1,6 @@
 # SecNotes
 Open-source secure notes
+License: MIT License
 
 ## Used libraries
 - QT
