@@ -10,6 +10,7 @@ class Note
 public:
     Note(string title, string contents);
     string contents, title;
+    bool html = true;
 };
 
 #endif // NOTE_H
