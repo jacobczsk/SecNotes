@@ -43,10 +43,10 @@ void FileHandling::writeNotebook(vector<Note> notes, string path, string passphr
     int okStart = 0;
     for (Note &note : notes) {
         xml_node xmlNote = notebook.append_child("Note");
-        xmlNote.append_child("Title").append_child(node_pcdata).set_value(OKCrypt::encrypt(note.getTitle(), passphrase, okStart).c_str());
-        okStart += note.getTitle().length();
-        xmlNote.append_child("Content").append_child(node_pcdata).set_value(OKCrypt::encrypt(note.getContents().c_str(), passphrase, okStart).c_str());
-        okStart += note.getContents().length();
+        xmlNote.append_child("Title").append_child(node_pcdata).set_value(OKCrypt::encrypt(note.title, passphrase, okStart).c_str());
+        okStart += note.title.length();
+        xmlNote.append_child("Content").append_child(node_pcdata).set_value(OKCrypt::encrypt(note.contents.c_str(), passphrase, okStart).c_str());
+        okStart += note.contents.length();
     }
     doc.save_file(path.c_str());
 }

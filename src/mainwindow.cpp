@@ -18,7 +18,7 @@ void MainWindow::newNote()
     lastNew++;
     Note empty("New note " + to_string(lastNew), "");
     notes.push_back(empty);
-    ui->listWidget->addItem(tr(empty.getTitle().c_str()));
+    ui->listWidget->addItem(tr(empty.title.c_str()));
 }
 
 void MainWindow::loadNote(QListWidgetItem *item)
@@ -26,7 +26,7 @@ void MainWindow::loadNote(QListWidgetItem *item)
     Note *gNote = nullptr;
     for (Note &note : notes)
     {
-        if (note.getTitle() == item->text().toStdString())
+        if (note.title == item->text().toStdString())
         {
             gNote = &note;
             active = &note;
@@ -40,14 +40,14 @@ void MainWindow::loadNote(QListWidgetItem *item)
     }
     ui->textEdit->setDisabled(false);
     ui->noteName->setDisabled(false);
-    ui->noteName->setText(tr(gNote->getTitle().c_str()));
-    ui->textEdit->document()->setHtml(tr(gNote->getContents().c_str()));
+    ui->noteName->setText(tr(gNote->title.c_str()));
+    ui->textEdit->document()->setHtml(tr(gNote->contents.c_str()));
 }
 
 void MainWindow::saveNote()
 {
     if (active == nullptr) return;
-    active->setContents(ui->textEdit->toHtml().toStdString());
+    active->contents = ui->textEdit->toHtml().toStdString();
 }
 
 void MainWindow::saveNotebook()
@@ -65,8 +65,8 @@ void MainWindow::saveNotebook()
 void MainWindow::changeNoteTitle()
 {
     std::string newTitle = ui->noteName->text().toStdString();
-    for (Note &note : notes) if (note.getTitle() == newTitle) return;
-    active->setTitle(newTitle);
+    for (Note &note : notes) if (note.title == newTitle) return;
+    active->title = newTitle;
     updateNotesList();
 }
 
@@ -74,7 +74,7 @@ void MainWindow::updateNotesList()
 {
     ui->listWidget->clear();
     for (Note &note : notes) {
-        ui->listWidget->addItem(tr(note.getTitle().c_str()));
+        ui->listWidget->addItem(tr(note.title.c_str()));
     }
 }
 
@@ -82,7 +82,7 @@ void MainWindow::deleteNote()
 {
     vector<Note> newNotes;
     for (Note &note : notes)
-        if (note.getTitle() != active->getTitle()) newNotes.push_back(note);
+        if (note.title != active->title) newNotes.push_back(note);
     notes = newNotes;
     updateNotesList();
 }

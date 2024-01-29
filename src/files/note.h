@@ -9,9 +9,6 @@ class Note
 {
 public:
     Note(string title, string contents);
-    string getTitle(), getContents();
-    void setTitle(string title), setContents(string contents);
-private:
     string contents, title;
 };
 
