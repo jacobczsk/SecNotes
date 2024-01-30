@@ -8,7 +8,7 @@ using namespace std;
 class Note
 {
 public:
-    Note(string title, string contents);
+    Note(string title, string contents, bool html = true);
     string contents, title;
     bool html = true;
 };
