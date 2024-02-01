@@ -29,7 +29,8 @@ vector<Note> FileHandling::parseNotebook(string path, string passphrase)
         okStart += title.length();
         string content = OKCrypt::decrypt(xmlNote.child("Content").text().as_string(), passphrase, okStart);
         okStart += content.length();
-        Note note(title, content);
+        bool html = xmlNote.attribute("html").as_bool(true);
+        Note note(title, content, html);
         result.push_back(note);
     }
 
@@ -47,6 +48,7 @@ void FileHandling::writeNotebook(vector<Note> notes, string path, string passphr
         okStart += note.title.length();
         xmlNote.append_child("Content").append_child(node_pcdata).set_value(OKCrypt::encrypt(note.contents.c_str(), passphrase, okStart).c_str());
         okStart += note.contents.length();
+        xmlNote.append_attribute("html").set_value(note.html);
     }
     doc.save_file(path.c_str());
 }
