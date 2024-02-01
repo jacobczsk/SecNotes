@@ -29,6 +29,9 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLineEdit" name="noteName">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="placeholderText">
          <string>Note name</string>
         </property>
@@ -36,6 +39,9 @@
       </item>
       <item>
        <widget class="MRichTextEdit" name="textEdit" native="true">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -61,9 +67,17 @@
     <property name="title">
      <string>Note</string>
     </property>
+    <widget class="QMenu" name="menuMode">
+     <property name="title">
+      <string>Mode</string>
+     </property>
+     <addaction name="actionPlain_text"/>
+     <addaction name="actionRich_text_HTML"/>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionSaveNote"/>
     <addaction name="actionDelete"/>
+    <addaction name="menuMode"/>
    </widget>
    <widget class="QMenu" name="menuNotebook">
     <property name="title">
@@ -83,15 +97,10 @@
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionRename">
-   <property name="text">
-    <string>Rename</string>
-   </property>
-   <property name="shortcut">
-    <string>F2</string>
-   </property>
-  </action>
   <action name="actionDelete">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Delete</string>
    </property>
@@ -108,11 +117,36 @@
    </property>
   </action>
   <action name="actionSaveNote">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionPlain_text">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Plain text</string>
+   </property>
+  </action>
+  <action name="actionRich_text_HTML">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Rich text (HTML)</string>
    </property>
   </action>
  </widget>
@@ -222,6 +256,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionPlain_text</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>modePlain()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRich_text_HTML</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>modeHtml()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>newNote()</slot>
@@ -230,5 +296,7 @@
   <slot>saveNotebook()</slot>
   <slot>changeNoteTitle()</slot>
   <slot>deleteNote()</slot>
+  <slot>modePlain()</slot>
+  <slot>modeHtml()</slot>
  </slots>
 </ui>

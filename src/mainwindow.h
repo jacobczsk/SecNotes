@@ -29,6 +29,8 @@ public slots:
     void saveNotebook();
     void changeNoteTitle();
     void deleteNote();
+    void modeHtml();
+    void modePlain();
 
 private:
     Ui::MainWindow *ui;
@@ -36,6 +38,8 @@ private:
     int lastNew;
     Note *active = nullptr;
     void updateNotesList();
+    void activate(bool activate);
+    void changeMode(int mode);
 
 };
 
